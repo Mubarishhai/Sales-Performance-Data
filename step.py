@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Load Dataset
-df = pd.read_csv("sales_data.csv")
+df = pd.read_csv(r"D:\Sales Performance Data\sales_data.csv")
+
 
 # Display first rows
 print(df.head())
