@@ -10,12 +10,7 @@ st.set_page_config(page_title="Sales Dashboard", layout="wide")
 @st.cache_data
 def load_data():
     df = pd.read_csv("sales_data_sample.csv", encoding="latin1")
-    df.columns = df.columns.str.strip()
-    df.dropna(inplace=True)
-    df["Sales"] = pd.to_numeric(df["Sales"], errors="coerce")
-    df.dropna(subset=["Sales"], inplace=True)
-    df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
-    return df
+    df.columns = df.
 
 df = load_data()
 
