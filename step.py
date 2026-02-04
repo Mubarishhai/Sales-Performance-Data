@@ -15,8 +15,8 @@ def load_and_clean_data(file_path):
     df.dropna(subset=["sales"], inplace=True)
 
     # Convert date column to datetime
-    df["date"] = pd.to_datetime(df["date"], errors="coerce")
-    df.dropna(subset=["date"], inplace=True)
+    df["orderdate"] = pd.to_datetime(df["orderdate"], errors="coerce")
+    df.dropna(subset=["orderdate"], inplace=True)
 
     return df
 
