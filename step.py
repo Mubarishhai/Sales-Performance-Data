@@ -23,8 +23,11 @@ def calculate_kpis(df):
     return {
         "Total Sales": round(df["sales"].sum(), 2),
         "Average Sales": round(df["sales"].mean(), 2),
+        "Max Sale": round(df["sales"].max(), 2),
+        "Min Sale": round(df["sales"].min(), 2),
         "Total Orders": len(df)
     }
+
 
 
 def sales_by_region(df):
