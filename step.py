@@ -2,22 +2,20 @@ import pandas as pd
 
 def load_and_clean_data(file_path):
     df = pd.read_csv(file_path, encoding="latin1")
-
-    # normalize columns
     df.columns = df.columns.str.strip().str.lower()
 
-    # basic cleaning
+    required_cols = ["sales", "orderdate", "territory", "productline"]
+    missing = [c for c in required_cols if c not in df.columns]
+
+    if missing:
+        raise ValueError(f"Missing columns in CSV: {missing}")
+
     df.drop_duplicates(inplace=True)
-    df.dropna(inplace=True)
 
-    # numeric sales
     df["sales"] = pd.to_numeric(df["sales"], errors="coerce")
-    df.dropna(subset=["sales"], inplace=True)
-
-    # date handling
     df["orderdate"] = pd.to_datetime(df["orderdate"], errors="coerce")
-    df.dropna(subset=["orderdate"], inplace=True)
 
+    df.dropna(subset=["sales", "orderdate"], inplace=True)
     return df
 
 
