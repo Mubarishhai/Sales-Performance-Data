@@ -26,6 +26,7 @@ def calculate_kpis(df):
         "Max Sale": round(df["sales"].max(), 2),
         "Min Sale": round(df["sales"].min(), 2),
         "Total Orders": len(df)
+
     }
 
 
