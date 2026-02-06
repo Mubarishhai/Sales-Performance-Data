@@ -86,5 +86,3 @@ def monthly_sales_trend(df: pd.DataFrame) -> pd.Series:
 
     return (
         temp_df.groupby("month", as_index=True)["sales"]
-        .sum()
-    )
