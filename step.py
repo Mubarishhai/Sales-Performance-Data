@@ -6,14 +6,14 @@ import pandas as pd
 def load_and_clean_data(file_path):
     df = pd.read_csv(file_path)
 
-    # Standardize column names (safe practice)
+    # Clean column names
     df.columns = df.columns.str.strip()
 
-    # Convert ORDERDATE to datetime
+    # Convert date column
     if "ORDERDATE" in df.columns:
         df["ORDERDATE"] = pd.to_datetime(df["ORDERDATE"], errors="coerce")
 
-    # Remove rows with missing SALES
+    # Drop missing sales
     df = df.dropna(subset=["SALES"])
 
     return df
