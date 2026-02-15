@@ -1,68 +1,71 @@
-import pandas as pd
+# step.py
 
-# ==============================
-# LOAD & CLEAN DATA
-# ==============================
-def load_and_clean_data(file_path):
-    df = pd.read_csv(file_path)
+from analysis import (
+    load_and_clean_data,
+    calculate_kpis,
+    sales_by_region,
+    top_products,
+    monthly_sales_trend
+)
 
-    # Clean column names
-    df.columns = df.columns.str.strip()
+# =====================================
+# STEP BY STEP SALES ANALYSIS
+# =====================================
 
-    # Convert date column
-    if "ORDERDATE" in df.columns:
-        df["ORDERDATE"] = pd.to_datetime(df["ORDERDATE"], errors="coerce")
+def run_steps():
 
-    # Drop missing sales
-    df = df.dropna(subset=["SALES"])
+    print("\n==============================")
+    print(" STEP 1: Loading Dataset")
+    print("==============================")
 
-    return df
+    file_path = "data/sales_data.csv"
+    df = load_and_clean_data(file_path)
 
-
-# ==============================
-# KPI CALCULATIONS
-# ==============================
-def calculate_kpis(df):
-    return {
-        "Total Sales": df["SALES"].sum(),
-        "Average Sales": df["SALES"].mean(),
-        "Max Sale": df["SALES"].max(),
-        "Min Sale": df["SALES"].min(),
-        "Total Orders": df["ORDERNUMBER"].nunique()
-    }
+    print("Dataset Loaded Successfully ✅")
+    print("Shape of data:", df.shape)
+    print(df.head())
 
 
-# ==============================
-# SALES BY REGION
-# ==============================
-def sales_by_region(df):
-    return (
-        df.groupby("TERRITORY")["SALES"]
-        .sum()
-        .sort_values(ascending=False)
-    )
+    # ---------------------------------
+    print("\n==============================")
+    print(" STEP 2: Calculating KPIs")
+    print("==============================")
+
+    kpis = calculate_kpis(df)
+
+    for key, value in kpis.items():
+        print(f"{key}: {value}")
 
 
-# ==============================
-# TOP PRODUCTS
-# ==============================
-def top_products(df, n=5):
-    return (
-        df.groupby("PRODUCTLINE")["SALES"]
-        .sum()
-        .sort_values(ascending=False)
-        .head(n)
-    )
+    # ---------------------------------
+    print("\n==============================")
+    print(" STEP 3: Sales by Region")
+    print("==============================")
+
+    region_sales = sales_by_region(df)
+    print(region_sales)
 
 
-# ==============================
-# MONTHLY SALES TREND
-# ==============================
-def monthly_sales_trend(df):
-    df["Month"] = df["ORDERDATE"].dt.to_period("M")
+    # ---------------------------------
+    print("\n==============================")
+    print(" STEP 4: Top Products")
+    print("==============================")
 
-    return (
-        df.groupby("Month")["SALES"]
-        .sum()
-        .sort_index()
-    )
+    top_prod = top_products(df)
+    print(top_prod)
+
+
+    # ---------------------------------
+    print("\n==============================")
+    print(" STEP 5: Monthly Sales Trend")
+    print("==============================")
+
+    monthly_trend = monthly_sales_trend(df)
+    print(monthly_trend)
+
+    print("\n✅ Analysis Completed Successfully!")
+
+
+# Run program
+if __name__ == "__main__":
+    run_steps()
