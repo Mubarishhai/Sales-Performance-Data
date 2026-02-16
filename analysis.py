@@ -4,7 +4,7 @@ import pandas as pd
 # LOAD & CLEAN DATA
 # ==============================
 def load_and_clean_data(file_path):
-    df = pd.read_csv(file_path)
+    df = pd.read_csv(file_path, encoding="latin1")
 
     # Clean column names
     df.columns = df.columns.str.strip().str.upper()
