@@ -20,7 +20,8 @@ st.title("📊 Sales Data Analysis Dashboard")
 # LOAD DATA (ABSOLUTE PATH FIX ✅)
 # ==============================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(BASE_DIR, "data", "sales_data_sample.csv")
+file_path = os.path.join(BASE_DIR, "data", "sales.csv")
+
 
 df = load_and_clean_data(file_path)
 
