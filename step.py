@@ -18,7 +18,7 @@ def run_steps():
     print(" STEP 1: Loading Dataset")
     print("==============================")
 
-    file_path = "data/sales_data.csv"
+    file_path = "data/sales.csv"
     df = load_and_clean_data(file_path)
 
     print("Dataset Loaded Successfully ✅")
